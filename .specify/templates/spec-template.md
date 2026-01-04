@@ -1,8 +1,8 @@
 # Feature Specification: [FEATURE NAME]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
+**Feature Branch**: `[###-feature-name]`
+**Created**: [DATE]
+**Status**: Draft
 **Input**: User description: "$ARGUMENTS"
 
 ## User Scenarios & Testing *(mandatory)*
@@ -11,7 +11,7 @@
   IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
   Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
   you should still have a viable MVP (Minimum Viable Product) that delivers value.
-  
+
   Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
   Think of each story as a standalone slice of functionality that can be:
   - Developed independently
@@ -85,7 +85,7 @@
 ### Functional Requirements
 
 - **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
 - **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
 - **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
 - **FR-005**: System MUST [behavior, e.g., "log all security events"]
@@ -99,6 +99,20 @@
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
+
+### UX Consistency Requirements
+
+<!--
+  ACTION REQUIRED: Identify UX consistency considerations for this feature.
+  Reference the design system, established patterns, and existing features.
+-->
+
+- **Design System Alignment**: [Which design system components/patterns will be used?]
+- **Terminology**: [What user-facing terms will be used? Verified against style guide?]
+- **Interaction Patterns**: [Which established interaction patterns apply? Any new patterns needed?]
+- **Error Handling**: [How will errors be displayed? Consistency with existing error patterns?]
+- **Accessibility**: [Keyboard navigation, screen reader support, color contrast requirements]
+- **Consistency with Existing Features**: [Which similar features exist? How will this align with them?]
 
 ## Success Criteria *(mandatory)*
 

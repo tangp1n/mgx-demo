@@ -1,0 +1,661 @@
+openapi: 3.0.3
+info:
+  title: AI-Powered Conversational App Builder Platform API
+  version: 1.0.0
+  description: API for conversational app creation platform with AI code generation and container execution
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development server
+  - url: https://api.example.com/api/v1
+    description: Production server
+
+tags:
+  - name: auth
+    description: Authentication and user management
+  - name: applications
+    description: Application management
+  - name: conversations
+    description: Conversation and streaming endpoints
+  - name: containers
+    description: Container and preview management
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  minLength: 8
+                  example: securePassword123
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid input (email already exists, invalid password)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Login and create session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /auth/logout:
+    post:
+      tags:
+        - auth
+      summary: Logout and invalidate session
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logout successful
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications:
+    get:
+      tags:
+        - applications
+      summary: List user's applications
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, requirements_confirmed, generating, deploying, running, stopped, error]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Application'
+                  total:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - applications
+      summary: Create a new application
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - requirements
+              properties:
+                name:
+                  type: string
+                  example: My Todo App
+                requirements:
+                  type: string
+                  example: I want to create a todo list app with add and delete functions
+      responses:
+        '201':
+          description: Application created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications/{application_id}:
+    get:
+      tags:
+        - applications
+      summary: Get application details
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    patch:
+      tags:
+        - applications
+      summary: Update application
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                requirements:
+                  type: string
+                requirements_confirmed:
+                  type: boolean
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - applications
+      summary: Delete application
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Application deleted
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications/{application_id}/confirm-requirements:
+    post:
+      tags:
+        - applications
+      summary: Confirm application requirements
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Requirements confirmed, code generation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Requirements already confirmed or invalid state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications/{application_id}/conversation:
+    get:
+      tags:
+        - conversations
+      summary: Get conversation for application
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conversation details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications/{application_id}/conversation/stream:
+    get:
+      tags:
+        - conversations
+      summary: Stream conversation events (SSE)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Server-Sent Events stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                example: |
+                  data: {"type":"thought","data":{"content":"Analyzing requirements..."},"timestamp":"2026-01-04T10:00:00Z"}
+
+                  data: {"type":"tool_call","data":{"tool":"code_gen","arguments":{}},"timestamp":"2026-01-04T10:00:01Z"}
+
+                  data: [DONE]
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - conversations
+      summary: Send message and start/continue conversation
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  example: I want to create a todo list app
+      responses:
+        '200':
+          description: Message sent, conversation stream started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_id:
+                    type: string
+                  stream_url:
+                    type: string
+                    example: /api/v1/applications/{application_id}/conversation/stream
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /applications/{application_id}/preview:
+    get:
+      tags:
+        - containers
+      summary: Get preview URL and status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: application_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Preview information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preview_url:
+                    type: string
+                    format: uri
+                    example: http://localhost:3000
+                  status:
+                    type: string
+                    enum: [creating, running, stopped, error]
+                  container_id:
+                    type: string
+        '404':
+          description: Application or preview not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Application:
+      type: object
+      properties:
+        id:
+          type: string
+        user_id:
+          type: string
+        name:
+          type: string
+          nullable: true
+        requirements:
+          type: string
+        requirements_confirmed:
+          type: boolean
+        status:
+          type: string
+          enum: [draft, requirements_confirmed, generating, deploying, running, stopped, error]
+        container_id:
+          type: string
+          nullable: true
+        preview_url:
+          type: string
+          format: uri
+          nullable: true
+        port:
+          type: integer
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        last_deployed_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+        application_id:
+          type: string
+        user_id:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        status:
+          type: string
+          enum: [active, paused, completed, error]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgentEvent'
+          nullable: true
+
+    AgentEvent:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [thought, tool_call, tool_call_result, text, error]
+        data:
+          type: object
+        timestamp:
+          type: string
+          format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        details:
+          type: object
+          nullable: true
+
