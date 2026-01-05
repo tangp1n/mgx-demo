@@ -23,16 +23,16 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create backend project structure at backend/src/ with directories: models/, services/, api/, agents/, containers/
-- [ ] T002 Create frontend project structure at fe/src/ with directories: components/, pages/, services/, hooks/, types/, utils/
-- [ ] T003 Initialize Python backend project with requirements.txt in backend/
-- [ ] T004 [P] Initialize React frontend project with package.json in fe/
-- [ ] T005 [P] Create backend/src/config.py for configuration management
-- [ ] T006 [P] Create backend/src/main.py for FastAPI application entry point
-- [ ] T007 [P] Create fe/src/App.tsx for React application entry point
-- [ ] T008 [P] Configure linting and formatting tools (black, flake8 for backend; ESLint, Prettier for frontend)
-- [ ] T009 [P] Create .env.example files for backend and frontend with required environment variables
-- [ ] T010 Create README.md with project setup instructions
+- [X] T001 Create backend project structure at backend/src/ with directories: models/, services/, api/, agents/, containers/
+- [X] T002 Create frontend project structure at fe/src/ with directories: components/, pages/, services/, hooks/, types/, utils/
+- [X] T003 Initialize Python backend project with requirements.txt in backend/
+- [X] T004 [P] Initialize React frontend project with package.json in fe/
+- [X] T005 [P] Create backend/src/config.py for configuration management
+- [X] T006 [P] Create backend/src/main.py for FastAPI application entry point
+- [X] T007 [P] Create fe/src/App.tsx for React application entry point
+- [X] T008 [P] Configure linting and formatting tools (black, flake8 for backend; ESLint, Prettier for frontend)
+- [X] T009 [P] Create .env.example files for backend and frontend with required environment variables
+- [X] T010 Create README.md with project setup instructions
 
 ---
 
@@ -42,20 +42,20 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T011 Setup MongoDB connection and async driver (Motor) in backend/src/services/database.py
-- [ ] T012 [P] Create User model in backend/src/models/user.py with email, password_hash, created_at, updated_at
-- [ ] T013 [P] Create Session model in backend/src/models/session.py with user_id, token, expires_at, created_at
-- [ ] T014 Implement authentication service in backend/src/services/auth/auth_service.py (password hashing, verification)
-- [ ] T015 Implement session service in backend/src/services/session/session_service.py (create, validate, revoke sessions)
-- [ ] T016 Create authentication middleware in backend/src/middleware/auth.py for bearer token validation
-- [ ] T017 [P] Implement user registration endpoint in backend/src/api/auth.py (POST /auth/register)
-- [ ] T018 [P] Implement user login endpoint in backend/src/api/auth.py (POST /auth/login)
-- [ ] T019 [P] Implement logout endpoint in backend/src/api/auth.py (POST /auth/logout)
-- [ ] T020 Configure FastAPI app with CORS, error handlers, and middleware in backend/src/main.py
-- [ ] T021 Create base error handling and response formatting utilities in backend/src/utils/errors.py
-- [ ] T022 Setup logging infrastructure in backend/src/utils/logger.py
-- [ ] T023 Create frontend API service client in fe/src/services/api.ts with axios/fetch configuration
-- [ ] T024 Create TypeScript types for API responses in fe/src/types/api.ts
+- [X] T011 Setup MongoDB connection and async driver (Motor) in backend/src/services/database.py
+- [X] T012 [P] Create User model in backend/src/models/user.py with email, password_hash, created_at, updated_at
+- [X] T013 [P] Create Session model in backend/src/models/session.py with user_id, token, expires_at, created_at
+- [X] T014 Implement authentication service in backend/src/services/auth/auth_service.py (password hashing, verification)
+- [X] T015 Implement session service in backend/src/services/session/session_service.py (create, validate, revoke sessions)
+- [X] T016 Create authentication middleware in backend/src/middleware/auth.py for bearer token validation
+- [X] T017 [P] Implement user registration endpoint in backend/src/api/auth.py (POST /auth/register)
+- [X] T018 [P] Implement user login endpoint in backend/src/api/auth.py (POST /auth/login)
+- [X] T019 [P] Implement logout endpoint in backend/src/api/auth.py (POST /auth/logout)
+- [X] T020 Configure FastAPI app with CORS, error handlers, and middleware in backend/src/main.py
+- [X] T021 Create base error handling and response formatting utilities in backend/src/utils/errors.py
+- [X] T022 Setup logging infrastructure in backend/src/utils/logger.py
+- [X] T023 Create frontend API service client in fe/src/services/api.ts with axios/fetch configuration
+- [X] T024 Create TypeScript types for API responses in fe/src/types/api.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -69,32 +69,32 @@
 
 ### Implementation for User Story 1
 
-- [ ] T025 [P] [US1] Create Application model in backend/src/models/application.py with user_id, name, requirements, requirements_confirmed, status, created_at, updated_at
-- [ ] T026 [P] [US1] Create Conversation model in backend/src/models/conversation.py with application_id, user_id, messages array, status, created_at, updated_at
-- [ ] T027 [US1] Create application service in backend/src/services/application/application_service.py (create, get, update, list applications)
-- [ ] T028 [US1] Create conversation service in backend/src/services/conversation/conversation_service.py (create, get, add message, update status)
-- [ ] T029 [US1] Create main app_creator agent in backend/src/agents/app_creator/agent.py using LangGraph with conversation, requirement extraction, and confirmation nodes
-- [ ] T030 [US1] Implement LLM integration and configuration in backend/src/agents/app_creator/llm_config.py
-- [ ] T031 [US1] Create agent state management for conversation context in backend/src/agents/app_creator/state.py
-- [ ] T032 [US1] Implement SSE event formatter for ag-ui protocol in backend/src/utils/sse_formatter.py (thought, tool_call, tool_call_result, text, error events)
-- [ ] T033 [US1] Implement conversation streaming endpoint (GET /applications/{application_id}/conversation/stream) in backend/src/api/conversations.py with SSE response
-- [ ] T034 [US1] Implement send message endpoint (POST /applications/{application_id}/conversation) in backend/src/api/conversations.py that triggers agent and returns stream URL
-- [ ] T035 [US1] Implement application creation endpoint (POST /applications) in backend/src/api/applications.py
-- [ ] T036 [US1] Implement get application endpoint (GET /applications/{application_id}) in backend/src/api/applications.py
-- [ ] T037 [US1] Implement list applications endpoint (GET /applications) in backend/src/api/applications.py
-- [ ] T038 [US1] Implement confirm requirements endpoint (POST /applications/{application_id}/confirm-requirements) in backend/src/api/applications.py
-- [ ] T039 [US1] Create frontend Login page component in fe/src/pages/Login.tsx
-- [ ] T040 [US1] Create frontend Register page component in fe/src/pages/Register.tsx
-- [ ] T041 [US1] Create frontend Dashboard page component in fe/src/pages/Dashboard.tsx with application list
-- [ ] T042 [US1] Setup CopilotKit provider and configuration in fe/src/App.tsx
-- [ ] T043 [US1] Create Conversation component using CopilotKit in fe/src/components/Conversation/Conversation.tsx
-- [ ] T044 [US1] Implement SSE client for streaming agent events in fe/src/services/sse.ts
-- [ ] T045 [US1] Integrate SSE client with CopilotKit in fe/src/components/Conversation/Conversation.tsx
-- [ ] T046 [US1] Create application creation UI in fe/src/components/Application/CreateApplication.tsx
-- [ ] T047 [US1] Create application list UI in fe/src/components/Application/ApplicationList.tsx
-- [ ] T048 [US1] Implement routing with React Router in fe/src/App.tsx (Login, Register, Dashboard routes)
-- [ ] T049 [US1] Create authentication context and hooks in fe/src/hooks/useAuth.ts for session management
-- [ ] T050 [US1] Add error handling and user-friendly error messages in conversation interface
+- [X] T025 [P] [US1] Create Application model in backend/src/models/application.py with user_id, name, requirements, requirements_confirmed, status, created_at, updated_at
+- [X] T026 [P] [US1] Create Conversation model in backend/src/models/conversation.py with application_id, user_id, messages array, status, created_at, updated_at
+- [X] T027 [US1] Create application service in backend/src/services/application/application_service.py (create, get, update, list applications)
+- [X] T028 [US1] Create conversation service in backend/src/services/conversation/conversation_service.py (create, get, add message, update status)
+- [X] T029 [US1] Create main app_creator agent in backend/src/agents/app_creator/agent.py using LangGraph with conversation, requirement extraction, and confirmation nodes
+- [X] T030 [US1] Implement LLM integration and configuration in backend/src/agents/app_creator/llm_config.py
+- [X] T031 [US1] Create agent state management for conversation context in backend/src/agents/app_creator/state.py
+- [X] T032 [US1] Implement SSE event formatter for ag-ui protocol in backend/src/utils/sse_formatter.py (thought, tool_call, tool_call_result, text, error events)
+- [X] T033 [US1] Implement conversation streaming endpoint (GET /applications/{application_id}/conversation/stream) in backend/src/api/conversations.py with SSE response
+- [X] T034 [US1] Implement send message endpoint (POST /applications/{application_id}/conversation) in backend/src/api/conversations.py that triggers agent and returns stream URL
+- [X] T035 [US1] Implement application creation endpoint (POST /applications) in backend/src/api/applications.py
+- [X] T036 [US1] Implement get application endpoint (GET /applications/{application_id}) in backend/src/api/applications.py
+- [X] T037 [US1] Implement list applications endpoint (GET /applications) in backend/src/api/applications.py
+- [X] T038 [US1] Implement confirm requirements endpoint (POST /applications/{application_id}/confirm-requirements) in backend/src/api/applications.py
+- [X] T039 [US1] Create frontend Login page component in fe/src/pages/Login.tsx
+- [X] T040 [US1] Create frontend Register page component in fe/src/pages/Register.tsx
+- [X] T041 [US1] Create frontend Dashboard page component in fe/src/pages/Dashboard.tsx with application list
+- [X] T042 [US1] Setup CopilotKit provider and configuration in fe/src/App.tsx
+- [X] T043 [US1] Create Conversation component using CopilotKit in fe/src/components/Conversation/Conversation.tsx
+- [X] T044 [US1] Implement SSE client for streaming agent events in fe/src/services/sse.ts
+- [X] T045 [US1] Integrate SSE client with CopilotKit in fe/src/components/Conversation/Conversation.tsx
+- [X] T046 [US1] Create application creation UI in fe/src/components/Application/CreateApplication.tsx
+- [X] T047 [US1] Create application list UI in fe/src/components/Application/ApplicationList.tsx
+- [X] T048 [US1] Implement routing with React Router in fe/src/App.tsx (Login, Register, Dashboard routes)
+- [X] T049 [US1] Create authentication context and hooks in fe/src/hooks/useAuth.ts for session management
+- [X] T050 [US1] Add error handling and user-friendly error messages in conversation interface
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently. Users can register, login, create applications, have conversations with the AI agent, and confirm requirements.
 
@@ -108,19 +108,19 @@
 
 ### Implementation for User Story 3
 
-- [ ] T051 [P] [US3] Create Container model in backend/src/models/container.py with application_id, container_id, image, status, port, resource_limits, created_at, updated_at
-- [ ] T052 [US3] Create container service in backend/src/services/container/container_service.py (create, get, update container metadata)
-- [ ] T053 [US3] Implement Docker client wrapper in backend/src/containers/docker_client.py using Docker SDK
-- [ ] T054 [US3] Implement file tree retrieval from container in backend/src/containers/file_tree.py (list directories and files)
-- [ ] T055 [US3] Implement file content retrieval from container in backend/src/containers/file_content.py (read file contents)
-- [ ] T056 [US3] Implement endpoint to get file tree (GET /applications/{application_id}/files) in backend/src/api/applications.py
-- [ ] T057 [US3] Implement endpoint to get file content (GET /applications/{application_id}/files/{file_path}) in backend/src/api/applications.py
-- [ ] T058 [US3] Create CodeEditor component with file tree in fe/src/components/CodeEditor/CodeEditor.tsx
-- [ ] T059 [US3] Implement file tree display with expand/collapse in fe/src/components/CodeEditor/FileTree.tsx
-- [ ] T060 [US3] Implement file content viewer with syntax highlighting in fe/src/components/CodeEditor/FileViewer.tsx
-- [ ] T061 [US3] Integrate CodeEditor component into Dashboard page in fe/src/pages/Dashboard.tsx
-- [ ] T062 [US3] Add file tree auto-refresh when files change in fe/src/components/CodeEditor/CodeEditor.tsx
-- [ ] T063 [US3] Implement file navigation (click to view, directory expand/collapse) in fe/src/components/CodeEditor/FileTree.tsx
+- [X] T051 [P] [US3] Create Container model in backend/src/models/container.py with application_id, container_id, image, status, port, resource_limits, created_at, updated_at
+- [X] T052 [US3] Create container service in backend/src/services/container/container_service.py (create, get, update container metadata)
+- [X] T053 [US3] Implement Docker client wrapper in backend/src/containers/docker_client.py using Docker SDK
+- [X] T054 [US3] Implement file tree retrieval from container in backend/src/containers/file_tree.py (list directories and files)
+- [X] T055 [US3] Implement file content retrieval from container in backend/src/containers/file_content.py (read file contents)
+- [X] T056 [US3] Implement endpoint to get file tree (GET /applications/{application_id}/files) in backend/src/api/applications.py
+- [X] T057 [US3] Implement endpoint to get file content (GET /applications/{application_id}/files/{file_path}) in backend/src/api/applications.py
+- [X] T058 [US3] Create CodeEditor component with file tree in fe/src/components/CodeEditor/CodeEditor.tsx
+- [X] T059 [US3] Implement file tree display with expand/collapse in fe/src/components/CodeEditor/FileTree.tsx
+- [X] T060 [US3] Implement file content viewer with syntax highlighting in fe/src/components/CodeEditor/FileViewer.tsx
+- [X] T061 [US3] Integrate CodeEditor component into Dashboard page in fe/src/pages/Dashboard.tsx
+- [X] T062 [US3] Add file tree auto-refresh when files change in fe/src/components/CodeEditor/CodeEditor.tsx
+- [X] T063 [US3] Implement file navigation (click to view, directory expand/collapse) in fe/src/components/CodeEditor/FileTree.tsx
 
 **Checkpoint**: At this point, User Story 3 should be fully functional. Users can view file structure and file contents from containers through the code editor interface.
 
@@ -134,28 +134,28 @@
 
 ### Implementation for User Story 2
 
-- [ ] T064 [US2] Create code generation sub-agent in backend/src/agents/code_gen/agent.py using LangGraph with code generation, file operations, and command execution nodes
-- [ ] T065 [US2] Implement file operation tools for agent in backend/src/agents/tools/file_ops.py (create file, write file, read file, list directory)
-- [ ] T066 [US2] Implement command execution tools for agent in backend/src/agents/tools/command_exec.py (execute command in container, get command output)
-- [ ] T067 [US2] Implement container command execution in backend/src/containers/exec.py (execute commands via Docker SDK)
-- [ ] T068 [US2] Implement container creation and lifecycle management in backend/src/services/container/container_lifecycle.py (create, start, stop, remove containers)
-- [ ] T069 [US2] Implement code generation workflow that creates container, generates files, installs dependencies, starts dev server in backend/src/services/agent/code_gen_service.py
-- [ ] T070 [US2] Update app_creator agent to invoke code_gen sub-agent after requirements confirmation in backend/src/agents/app_creator/agent.py
-- [ ] T071 [US2] Implement container file operations (copy files into container) in backend/src/containers/file_ops.py
-- [ ] T072 [US2] Implement application status tracking and updates in backend/src/services/application/application_service.py (update status: generating, deploying, running, error)
-- [ ] T073 [US2] Implement container network and port management in backend/src/services/container/container_network.py (expose ports, create networks)
-- [ ] T074 [US2] Implement preview URL generation and management in backend/src/services/container/preview_url.py
-- [ ] T075 [US2] Update Application model with container_id, preview_url, port, last_deployed_at in backend/src/models/application.py
-- [ ] T076 [US2] Implement endpoint to get preview information (GET /applications/{application_id}/preview) in backend/src/api/applications.py
-- [ ] T077 [US2] Create AppPreview component with iframe in fe/src/components/AppPreview/AppPreview.tsx
-- [ ] T078 [US2] Integrate AppPreview component into Dashboard page in fe/src/pages/Dashboard.tsx
-- [ ] T079 [US2] Implement preview URL loading and error handling in fe/src/components/AppPreview/AppPreview.tsx
-- [ ] T080 [US2] Add status indicators for code generation and deployment in fe/src/components/Application/ApplicationStatus.tsx
-- [ ] T081 [US2] Implement real-time status updates via SSE in conversation stream for code generation progress in backend/src/agents/code_gen/agent.py
-- [ ] T082 [US2] Display tool_call and tool_call_result events in conversation UI for code generation operations in fe/src/components/Conversation/Conversation.tsx
-- [ ] T083 [US2] Add error handling for code generation failures with user-friendly messages in backend/src/services/agent/code_gen_service.py
-- [ ] T084 [US2] Implement container resource limits (memory, CPU) configuration in backend/src/services/container/container_lifecycle.py
-- [ ] T085 [US2] Implement container cleanup on application deletion in backend/src/services/application/application_service.py
+- [X] T064 [US2] Create code generation sub-agent in backend/src/agents/code_gen/agent.py using LangGraph with code generation, file operations, and command execution nodes
+- [X] T065 [US2] Implement file operation tools for agent in backend/src/agents/tools/file_ops.py (create file, write file, read file, list directory)
+- [X] T066 [US2] Implement command execution tools for agent in backend/src/agents/tools/command_exec.py (execute command in container, get command output)
+- [X] T067 [US2] Implement container command execution in backend/src/containers/exec.py (execute commands via Docker SDK)
+- [X] T068 [US2] Implement container creation and lifecycle management in backend/src/services/container/container_lifecycle.py (create, start, stop, remove containers)
+- [X] T069 [US2] Implement code generation workflow that creates container, generates files, installs dependencies, starts dev server in backend/src/services/agent/code_gen_service.py
+- [X] T070 [US2] Update app_creator agent to invoke code_gen sub-agent after requirements confirmation in backend/src/agents/app_creator/agent.py
+- [X] T071 [US2] Implement container file operations (copy files into container) in backend/src/containers/file_ops.py
+- [X] T072 [US2] Implement application status tracking and updates in backend/src/services/application/application_service.py (update status: generating, deploying, running, error)
+- [X] T073 [US2] Implement container network and port management in backend/src/services/container/container_network.py (expose ports, create networks)
+- [X] T074 [US2] Implement preview URL generation and management in backend/src/services/container/preview_url.py
+- [X] T075 [US2] Update Application model with container_id, preview_url, port, last_deployed_at in backend/src/models/application.py
+- [X] T076 [US2] Implement endpoint to get preview information (GET /applications/{application_id}/preview) in backend/src/api/applications.py
+- [X] T077 [US2] Create AppPreview component with iframe in fe/src/components/AppPreview/AppPreview.tsx
+- [X] T078 [US2] Integrate AppPreview component into Dashboard page in fe/src/pages/Dashboard.tsx
+- [X] T079 [US2] Implement preview URL loading and error handling in fe/src/components/AppPreview/AppPreview.tsx
+- [X] T080 [US2] Add status indicators for code generation and deployment in fe/src/components/Application/ApplicationStatus.tsx
+- [X] T081 [US2] Implement real-time status updates via SSE in conversation stream for code generation progress in backend/src/agents/code_gen/agent.py
+- [X] T082 [US2] Display tool_call and tool_call_result events in conversation UI for code generation operations in fe/src/components/Conversation/Conversation.tsx
+- [X] T083 [US2] Add error handling for code generation failures with user-friendly messages in backend/src/services/agent/code_gen_service.py
+- [X] T084 [US2] Implement container resource limits (memory, CPU) configuration in backend/src/services/container/container_lifecycle.py
+- [X] T085 [US2] Implement container cleanup on application deletion in backend/src/services/application/application_service.py
 
 **Checkpoint**: At this point, User Story 2 should be fully functional. Users can confirm requirements, system generates code, runs it in containers, and users can preview running applications.
 

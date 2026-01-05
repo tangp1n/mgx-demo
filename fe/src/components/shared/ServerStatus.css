@@ -1,0 +1,59 @@
+.server-status {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.server-status:hover {
+  opacity: 0.9;
+}
+
+.server-status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.server-status-indicator.server-status-healthy {
+  background-color: #48bb78;
+  box-shadow: 0 0 4px rgba(72, 187, 120, 0.5);
+}
+
+.server-status-indicator.server-status-unhealthy {
+  background-color: #f56565;
+  box-shadow: 0 0 4px rgba(245, 101, 101, 0.5);
+}
+
+.server-status-indicator.server-status-checking {
+  background-color: #ed8936;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.server-status-text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  white-space: nowrap;
+}
+

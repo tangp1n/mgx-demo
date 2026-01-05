@@ -1,0 +1,39 @@
+# Web Framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12
+
+# Database
+motor>=3.6.0
+pymongo>=4.10.0
+
+# Authentication & Security
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=1.0.1
+
+# Docker
+docker>=7.1.0
+
+# AI/LLM
+langchain>=0.3.0
+langgraph>=0.2.40
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+openai>=1.40.0,<2.0.0
+anthropic>=0.30.0
+
+# SSE Support
+sse-starlette>=2.0.0
+
+# Utilities
+pydantic>=2.7.4
+pydantic-settings>=2.5.0
+email-validator>=2.2.0
+
+# Development
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+black>=24.0.0
+flake8>=7.0.0
+
