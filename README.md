@@ -43,14 +43,15 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+uv sync
 
 # Set environment variables
 cp .env.example .env
-# Edit .env and configure: MONGODB_URL, SECRET_KEY, LLM_API_KEY, etc.
+
+# Edit .env and configure: MONGODB_URL, LLM_API_KEY, etc.
 
 # Start backend server
-uvicorn src.main:app --reload --port 8000
+uv run uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Backend will be available at `http://localhost:8000`
