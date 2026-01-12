@@ -34,7 +34,7 @@ A platform where users create applications through natural language dialogue wit
 - MongoDB (local or Atlas)
 
 ### Backend Setup
-
+require docker and mongo db service started
 ```bash
 cd backend
 
